@@ -40,6 +40,7 @@ public class PhoneForm extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.GridLayout(1, 1));
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel1.setForeground(new java.awt.Color(255, 0, 0));
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Phone Number:");
