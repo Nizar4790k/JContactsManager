@@ -35,15 +35,20 @@ public class Contact implements Serializable {
     private String email;
     
     @ManyToOne
+    @JoinColumn(name ="userEmail")
     private User user;
     
     @ManyToOne
+      @JoinColumn(name ="companyId")
     private Company company;
     
+    
+    /*
     @OneToMany
     @JoinColumn(name="phoneId")
     private Set<Phone> phones;
-    
+    */
+
    @ManyToOne
    private Position position;
    

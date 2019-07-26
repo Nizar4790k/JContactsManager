@@ -6,6 +6,8 @@
 package model.Objects;
 
 import java.sql.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,37 +16,50 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
  * @author Nizar4790k
  */
-
 @Entity
-@Table(name="User")
+@Table(name = "User")
 public class User {
-    
-   @Id
-   @Column(name="email")
-   private String email;
-   
-  @Column(name="password")
-   private String password;
-   
-  @Column(name="firstName")
-   private String firstName;
-  
-  @Column(name="lastName")
-   private String lastName;
-    
-  @Column(name="createDate")
-   private Date createDate;
-  
-  @OneToMany(cascade = CascadeType.ALL)
-  @JoinColumn(name="userEmail")          //User can have many contacts
-  private Set<Contact> contacts;
-  
 
+    public User (String email,String password,String firstName,String lastName){
+        this.email=email;
+        this.password=password;
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.createDate = new GregorianCalendar();
+    }
+    
+    
+    @Id
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "firstName")
+    private String firstName;
+
+    @Column(name = "lastName")
+    private String lastName;
+
+    @Column(name = "createDate")
+    @Temporal(TemporalType.DATE)
+    private Calendar createDate;
+
+   
+    
+    /*
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userEmail")          //User can have many contacts
+    private Set<Contact> contacts;
+    /*
     /**
      * @return the email
      */
@@ -104,29 +119,36 @@ public class User {
     /**
      * @return the createDate
      */
-    public Date getCreateDate() {
+    public Calendar getCreateDate() {
         return createDate;
     }
 
     /**
      * @param createDate the createDate to set
      */
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(Calendar createDate) {
         this.createDate = createDate;
     }
 
     /**
      * @return the contacts
      */
+    
+    /*
     public Set<Contact> getContacts() {
         return contacts;
     }
-
+    */
+    
     /**
      * @param contacts the contacts to set
      */
+    
+    /*
     public void setContacts(Set<Contact> contacts) {
         this.contacts = contacts;
     }
-    
+    */
 }
+
+ 
