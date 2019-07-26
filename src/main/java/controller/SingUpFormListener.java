@@ -12,6 +12,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Objects.User;
+import org.hibernate.exception.ConstraintViolationException;
+import view.Dialog;
+import view.LoginForm;
 import view.SingUpForm;
 
 /**
@@ -33,11 +36,40 @@ public class SingUpFormListener {
              String password1= new String (form.getTxtPassword1().getPassword());
              String password2= new String (form.getTxtPassword2().getPassword());
              
+             
+             boolean areEmpty = name.trim().equals("") || phone.trim().equals("") ||	 lastName.trim().equals("") ||	 firstName.trim().equals("") ||	 email.trim().equals("" ) ||	 password1.trim().equals("") ||	password2.trim().equals("");
+             
+             if(areEmpty){
+                 Dialog.errorDialog("The field(s) must not be empty", "Field(s) empty");
+                 return;
+             }
+             
+             if(!isValidEmail(email)){
+                 Dialog.errorDialog("The email is not valid", "Invalid Email");
+                 return;
+             }
+             if(CRUD.getObject(email, User.class)!=null){
+                  Dialog.errorDialog("The email is registred", "Invalid Email");
+                  return;
+             }
+             
+            if(!isValidPassword(password1)){
+                 Dialog.errorDialog("The password is not valid: '\n'"
+                         + "Be between 8 and 40 characters long\n" +
+                            "Contain at least one digit.\n" +
+                            "Contain at least one lower case character.\n" +
+                            "Contain at least one upper case character.\n" +
+                            "Contain at least on special character from [ @ # $ % ! . _ ]."
+                            , "Wrong Password");
+                  return;
+            }
+             
+             
              boolean psEquals = password1.equals(password2);
            
              if(!psEquals)
              {
-                 JOptionPane.showMessageDialog(null, "The password are not the same","ERROR",JOptionPane.ERROR_MESSAGE);
+                 Dialog.errorDialog("The password are not the same ","Wrong password");
                  return;
              }
             
@@ -46,9 +78,18 @@ public class SingUpFormListener {
              try {
                     CRUD.saveObject(user);
                      JOptionPane.showMessageDialog(null, "Used created Sucessfully","Success!",JOptionPane.INFORMATION_MESSAGE);
+                     form.dispose();
+                     new LoginForm().setVisible(true);
+                     
+                     
                      
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Error when saving user","ERROR",JOptionPane.ERROR_MESSAGE);
+                    return;
+                }catch(ConstraintViolationException ex2){
+                    
+                      JOptionPane.showMessageDialog(null, "This email exist","ERROR",JOptionPane.ERROR_MESSAGE);
+                      return;
                 }
                  
              
@@ -61,7 +102,32 @@ public class SingUpFormListener {
         return listener;
     }
     
-   
+
+       public static ActionListener goLogin(SingUpForm form){
+         
+           ActionListener listener = new ActionListener(){
+               @Override
+               public void actionPerformed(ActionEvent ae) {
+                   form.dispose();
+                     new LoginForm().setVisible(true);
+               }
+               
+           };
+           
+           return listener;
+       }
     
+    
+    
+     private static boolean isValidEmail(String email) 
+     {
+   String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+   return email.matches(regex);
+    }
+    
+      private static boolean isValidPassword(String password) {
+   String regex = "((?=.*[a-z])(?=.*\\d)(?=.*[A-Z])(?=.*[@#$%!_]).{8,40})";
+   return password.matches(regex);
+    }
     
 }

@@ -8,6 +8,7 @@ package model.Objects;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -27,6 +28,10 @@ import javax.persistence.TemporalType;
 @Table(name = "User")
 public class User {
 
+    public User(){
+        
+    }
+    
     public User (String email,String password,String firstName,String lastName){
         this.email=email;
         this.password=password;
@@ -129,6 +134,10 @@ public class User {
     public void setCreateDate(Calendar createDate) {
         this.createDate = createDate;
     }
+    
+  
+
+    
 
     /**
      * @return the contacts

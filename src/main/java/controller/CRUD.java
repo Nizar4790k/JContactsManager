@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -67,7 +68,7 @@ public class  CRUD<T> {
 	}
 	
 	
-	public static <T> void borrarObjeto(int id, Class c) throws SQLException {
+	public static <T,Pk> void deleteObject(Pk id, Class c) throws SQLException {
 		
 		  T object;  
 		  SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(c).buildSessionFactory();
@@ -234,7 +235,7 @@ public class  CRUD<T> {
 	
 	
 	
-	public static <T> T getObject(int id,Class c){
+	public static <T,Pk> T getObject(Pk id,Class c){
 		T object;
 		
 		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(c).buildSessionFactory();
@@ -247,14 +248,15 @@ public class  CRUD<T> {
 	    	  
 	    	  
 	    	 session.beginTransaction();  
-	    	 object =   (T) session.get(c,id);// Recuperando el objeto dada la clase y el id
+	    	 object =   (T) session.get(c, (Serializable) id);// Recuperando el objeto dada la clase y el id
 	    	 session.getTransaction().commit();
+                 return object;
 		
 	      } finally {
 	    	  
 	    	  factory.close();
 	      }
-		return object;
+		
 	}
 	
 }

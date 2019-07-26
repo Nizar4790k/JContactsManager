@@ -79,7 +79,7 @@
                           <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                              <Component id="jButton2" min="-2" pref="343" max="-2" attributes="0"/>
+                              <Component id="btnLogin" min="-2" pref="343" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -170,7 +170,7 @@
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnLogin" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -242,8 +242,14 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JPasswordField" name="txtPassword2">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;h2&gt; The password(s) must be : &lt;/h2&gt;&#xa;&lt;ul&gt;&#xa;  &lt;li&gt;Be between 8 and 40 characters longer&lt;/li&gt;&#xa;  &lt;li&gt;Contain at least one digit.&lt;/li&gt;&#xa;  &lt;li&gt;Contain at least one lower case character.&lt;/li&gt;&#xa;&lt;li&gt; Contain at least one upper case character.&lt;/li&gt;&#xa;&lt;li&gt; Contain at least on special character from [ @ # $ % ! . _]&lt;/li&gt;&#xa;&lt;/ul&gt;&#xa;&lt;/html&gt;"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JPasswordField" name="txtPassword1">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;h2&gt; The password(s) must be : &lt;/h2&gt;&#xa;&lt;ul&gt;&#xa;  &lt;li&gt;Be between 8 and 40 characters longer&lt;/li&gt;&#xa;  &lt;li&gt;Contain at least one digit.&lt;/li&gt;&#xa;  &lt;li&gt;Contain at least one lower case character.&lt;/li&gt;&#xa;&lt;li&gt; Contain at least one upper case character.&lt;/li&gt;&#xa;&lt;li&gt; Contain at least on special character from [ @ # $ % ! . _]&lt;/li&gt;&#xa;&lt;/ul&gt;&#xa;&lt;/html&gt;"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtPhone">
         </Component>
@@ -275,7 +281,7 @@
             <Property name="text" type="java.lang.String" value="Already a member ?"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="btnLogin">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="ff" type="rgb"/>

@@ -49,7 +49,7 @@ public class SingUpForm extends javax.swing.JFrame {
         txtName = new javax.swing.JTextField();
         btnRegister = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnLogin = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -87,6 +87,10 @@ public class SingUpForm extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Repeat Password:");
 
+        txtPassword2.setToolTipText("<html>\n<h2> The password(s) must be : </h2>\n<ul>\n  <li>Be between 8 and 40 characters longer</li>\n  <li>Contain at least one digit.</li>\n  <li>Contain at least one lower case character.</li>\n<li> Contain at least one upper case character.</li>\n<li> Contain at least on special character from [ @ # $ % ! . _]</li>\n</ul>\n</html>");
+
+        txtPassword1.setToolTipText("<html>\n<h2> The password(s) must be : </h2>\n<ul>\n  <li>Be between 8 and 40 characters longer</li>\n  <li>Contain at least one digit.</li>\n  <li>Contain at least one lower case character.</li>\n<li> Contain at least one upper case character.</li>\n<li> Contain at least on special character from [ @ # $ % ! . _]</li>\n</ul>\n</html>");
+
         txtName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNameActionPerformed(evt);
@@ -100,9 +104,9 @@ public class SingUpForm extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Already a member ?");
 
-        jButton2.setBackground(new java.awt.Color(255, 0, 0));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_log-in_2561252_1.png"))); // NOI18N
-        jButton2.setText("Log in");
+        btnLogin.setBackground(new java.awt.Color(255, 0, 0));
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_log-in_2561252_1.png"))); // NOI18N
+        btnLogin.setText("Log in");
 
         jLabel11.setForeground(new java.awt.Color(255, 0, 0));
         jLabel11.setText("*");
@@ -159,7 +163,7 @@ public class SingUpForm extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addGap(8, 8, 8)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
@@ -231,7 +235,7 @@ public class SingUpForm extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
+                .addComponent(btnLogin)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -282,8 +286,8 @@ public class SingUpForm extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnRegister;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -352,6 +356,7 @@ public class SingUpForm extends javax.swing.JFrame {
     
     private void addListeners(){
         btnRegister.addActionListener(SingUpFormListener.register(this));
+        btnLogin.addActionListener(SingUpFormListener.goLogin(this));
     }
     
 }

@@ -7,7 +7,10 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import model.Objects.User;
+import view.Dialog;
 import view.LoginForm;
+import view.MainForm;
 import view.SingUpForm;
 
 /**
@@ -36,8 +39,29 @@ public class LoginFormListeners {
         ActionListener listener = new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent ae) {
-                form.dispose();
-                new SingUpForm().setVisible(true);
+                
+                String email = form.getTxtEmail().getText();
+                
+                
+                String password = new String(form.getTxtPassword().getPassword());
+                User user = CRUD.getObject(email, User.class);
+                
+                if(user==null){
+                       Dialog.errorDialog("It appears that the email or de password are wrong", "ERROR");
+                       return;
+                }
+                
+                if(user.getEmail().equals(email) && user.getPassword().equals(password)){
+                    form.dispose();
+                    new MainForm().setVisible(true);
+                }else {
+                    Dialog.errorDialog("It appears that the email or de password are wrong", "ERROR");
+                    return;
+                }
+                
+                
+                
+                
             }
            
         };
@@ -45,5 +69,8 @@ public class LoginFormListeners {
       
         return listener; 
     } 
+      
+      
+   
    
 }
