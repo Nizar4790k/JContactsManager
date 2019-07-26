@@ -60,7 +60,7 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="59" max="32767" attributes="0"/>
+                  <EmptySpace pref="43" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
@@ -131,7 +131,7 @@
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/view/res/img/iconfinder_user_285655.png"/>
+              <Image iconType="3" name="/iconfinder_user_285655.png"/>
             </Property>
           </Properties>
         </Component>
@@ -168,7 +168,7 @@
               <Color blue="0" green="0" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/view/res/img/iconfinder_list-add-user_9381.png"/>
+              <Image iconType="3" name="/img/icons/iconfinder_list-add-user_9381.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Sing up"/>
           </Properties>
@@ -182,7 +182,7 @@
               <Color blue="33" green="ff" red="33" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/view/res/img/iconfinder_log-in_2561252.png"/>
+              <Image iconType="3" name="/img/icons/iconfinder_log-in_2561252.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Sing in"/>
           </Properties>
