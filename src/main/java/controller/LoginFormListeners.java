@@ -7,6 +7,7 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import view.LoginForm;
 import view.SingUpForm;
 
 /**
@@ -15,12 +16,13 @@ import view.SingUpForm;
  */
 public class LoginFormListeners {
     
-    public static ActionListener singUp (){
+    public static ActionListener singUp (LoginForm form){
       
         ActionListener listener = new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent ae) {
-               new SingUpForm().setVisible(true);
+                form.dispose();
+                new SingUpForm().setVisible(true);
             }
            
         };
@@ -29,12 +31,13 @@ public class LoginFormListeners {
         return listener; 
     } 
     
-      public static ActionListener singIn (){
+      public static ActionListener singIn (LoginForm form){
       
         ActionListener listener = new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent ae) {
-               new SingUpForm().setVisible(true);
+                form.dispose();
+                new SingUpForm().setVisible(true);
             }
            
         };
