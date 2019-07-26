@@ -5,6 +5,9 @@
  */
 package main;
 
+import controller.DBManipulation;
+import java.sql.SQLException;
+
 import view.LoginForm;
 
 /**
@@ -14,5 +17,10 @@ import view.LoginForm;
 public class Main {
     public static void main(String [] args){
         new LoginForm().setVisible(true);
+        try {
+            DBManipulation.testConnection();
+        } catch (SQLException ex) {
+           ex.printStackTrace();
+        }
     }
 }
