@@ -614,20 +614,20 @@ public class MainForm extends javax.swing.JFrame {
 
         jMenu6.setText("File");
 
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/res/img/iconfinder_slice83_2831418.png"))); // NOI18N
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_slice83_2831418.png"))); // NOI18N
         jMenuItem1.setText("Import Contacts List..");
         jMenu6.add(jMenuItem1);
 
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/res/img/iconfinder_slice84_2831424.png"))); // NOI18N
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_slice84_2831424.png"))); // NOI18N
         jMenuItem2.setText("Export Contact List..");
         jMenu6.add(jMenuItem2);
 
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/res/img/iconfinder_system-log-out_118796.png"))); // NOI18N
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_system-log-out_118796.png"))); // NOI18N
         jMenuItem3.setText("Log out");
         jMenu6.add(jMenuItem3);
 
         jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/res/img/iconfinder_Cancel_1493282.png"))); // NOI18N
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_Cancel_1493282.png"))); // NOI18N
         jMenuItem4.setText("Exit");
         jMenu6.add(jMenuItem4);
 
@@ -635,27 +635,28 @@ public class MainForm extends javax.swing.JFrame {
 
         jMenu4.setText("Actions");
 
-        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/res/img/iconfinder_contacts_1055082.png"))); // NOI18N
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_contacts_1055082.png"))); // NOI18N
         jMenu2.setText("Contacts");
 
         buttonGroup1.add(jRadioButtonMenuItem3);
         jRadioButtonMenuItem3.setSelected(true);
         jRadioButtonMenuItem3.setText("Add contact");
-        jRadioButtonMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/res/img/iconfinder_icon-person-add_211872.png"))); // NOI18N
+        jRadioButtonMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_icon-person-add_211872.png"))); // NOI18N
         jMenu2.add(jRadioButtonMenuItem3);
 
         buttonGroup1.add(jRadioButtonMenuItem1);
         jRadioButtonMenuItem1.setText("Edit contact");
-        jRadioButtonMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/res/img/iconfinder_user_profile_edit_103781.png"))); // NOI18N
+        jRadioButtonMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_user_profile_edit_103781.png"))); // NOI18N
         jMenu2.add(jRadioButtonMenuItem1);
 
         buttonGroup1.add(jRadioButtonMenuItem2);
         jRadioButtonMenuItem2.setText("Delete contact");
-        jRadioButtonMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/res/img/iconfinder_Streamline-70_185090.png"))); // NOI18N
+        jRadioButtonMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_Streamline-70_185090.png"))); // NOI18N
         jMenu2.add(jRadioButtonMenuItem2);
 
         jMenu4.add(jMenu2);
 
+        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_Company.png"))); // NOI18N
         jMenu5.setText("Company");
 
         jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/res/img/iconfinder_flat-style-circle-add_1312548.png"))); // NOI18N
@@ -665,7 +666,7 @@ public class MainForm extends javax.swing.JFrame {
         jMenu4.add(jMenu5);
 
         jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
-        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/res/img/iconfinder_view-refresh_118801.png"))); // NOI18N
+        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_view-refresh_118801.png"))); // NOI18N
         jMenuItem6.setText("Refresh");
         jMenu4.add(jMenuItem6);
 
@@ -673,7 +674,7 @@ public class MainForm extends javax.swing.JFrame {
 
         jMenu3.setText("Help");
 
-        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/res/img/iconfinder_Information_27854.png"))); // NOI18N
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_Information_27854.png"))); // NOI18N
         jMenuItem5.setText("About JContactsManager");
         jMenu3.add(jMenuItem5);
 
