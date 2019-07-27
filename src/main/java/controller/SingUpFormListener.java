@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import model.Objects.User;
+import model.objects.User;
 import org.hibernate.exception.ConstraintViolationException;
 import view.Dialog;
 import view.LoginForm;

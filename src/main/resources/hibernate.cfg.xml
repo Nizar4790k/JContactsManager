@@ -24,7 +24,14 @@
 		<!-- Set the current session context -->
 		<property name="current_session_context_class">thread</property>
 		
-		
+		<mapping class="model.objects.Company"/>
+                <mapping class="model.objects.Contact"/>
+                 <mapping class="model.objects.Note"/>
+                 <mapping class = "model.objects.Phone"/>
+                 <mapping class = "model.objects.User"/>
+                 <mapping class = "model.objects.Position"/>
+                 <mapping class = "model.objects.Photo"/>
+                 
  
     </session-factory>
 

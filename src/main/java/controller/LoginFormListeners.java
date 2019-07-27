@@ -7,7 +7,7 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import model.Objects.User;
+import model.objects.User;
 import view.Dialog;
 import view.LoginForm;
 import view.MainForm;
@@ -53,7 +53,14 @@ public class LoginFormListeners {
                 
                 if(user.getEmail().equals(email) && user.getPassword().equals(password)){
                     form.dispose();
-                    new MainForm().setVisible(true);
+                    MainForm form1 =   new MainForm();
+                    form1.setVisible(true);
+                   
+                    form1.getLblName().setText(user.getFirstName());
+                    form1.getLblLastName().setText(user.getLastName());
+                    form1.getLblUser().setText(user.getEmail());
+                    form1.setCurrentUser(user);
+                          
                 }else {
                     Dialog.errorDialog("It appears that the email or de password are wrong", "ERROR");
                     return;
