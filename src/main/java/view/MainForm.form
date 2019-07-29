@@ -871,7 +871,6 @@
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="btnDeletePhone" min="-2" pref="128" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="btnEditPhone" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jScrollPane2" min="-2" pref="196" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -901,27 +900,12 @@
                                   <Component id="btnAddPhone" min="-2" max="-2" attributes="0"/>
                                   <Component id="btnDeletePhone" min="-2" pref="32" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="btnEditPhone" min="-2" pref="32" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JButton" name="btnEditPhone">
-                      <Properties>
-                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="33" red="33" type="rgb"/>
-                        </Property>
-                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/img/icons/iconfinder_brush-pencil_1055103.png"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="Edit"/>
-                      </Properties>
-                    </Component>
                     <Component class="javax.swing.JButton" name="btnDeletePhone">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">

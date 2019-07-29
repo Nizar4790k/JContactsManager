@@ -121,7 +121,6 @@ public class MainForm extends javax.swing.JFrame {
         txtPhoto = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
-        btnEditPhone = new javax.swing.JButton();
         btnDeletePhone = new javax.swing.JButton();
         btnAddPhone = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -426,11 +425,6 @@ public class MainForm extends javax.swing.JFrame {
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Phone(s)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel7.setForeground(new java.awt.Color(255, 255, 255));
 
-        btnEditPhone.setBackground(new java.awt.Color(51, 51, 255));
-        btnEditPhone.setForeground(new java.awt.Color(255, 255, 255));
-        btnEditPhone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_brush-pencil_1055103.png"))); // NOI18N
-        btnEditPhone.setText("Edit");
-
         btnDeletePhone.setBackground(new java.awt.Color(255, 102, 102));
         btnDeletePhone.setForeground(new java.awt.Color(255, 255, 255));
         btnDeletePhone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_minus_1645995.png"))); // NOI18N
@@ -467,7 +461,6 @@ public class MainForm extends javax.swing.JFrame {
                         .addComponent(btnAddPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnDeletePhone, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnEditPhone)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -489,8 +482,7 @@ public class MainForm extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnAddPhone)
                     .addComponent(btnDeletePhone, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnEditPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44))
         );
 
         btnPickPhoto.setText("...");
@@ -789,7 +781,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton btnAddPhone;
     private javax.swing.JButton btnApply;
     private javax.swing.JButton btnDeletePhone;
-    private javax.swing.JButton btnEditPhone;
     private javax.swing.JButton btnPickPhoto;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
@@ -1091,7 +1082,7 @@ public class MainForm extends javax.swing.JFrame {
        tblPhone.setEnabled(editable);
        txtAreaContact.setEditable(editable);
        btnAddPhone.setEnabled(editable);
-       btnEditPhone.setEnabled(editable);
+      
        btnDeletePhone.setEnabled(editable);
        btnPickPhoto.setEnabled(editable);
        
@@ -1110,7 +1101,7 @@ public class MainForm extends javax.swing.JFrame {
        txtName1.setText("");
        txtLastName1.setText("");
        txtEmail.setText("");
-       txtPhoto.setText("");
+       txtPhoto.setText("default");
        txtAreaContact.setText("");
        
        DefaultTableModel model = (DefaultTableModel)this.tblPhone.getModel();
@@ -1118,6 +1109,10 @@ public class MainForm extends javax.swing.JFrame {
        for(int i=0;i<model.getRowCount();i++){
          model.removeRow(i);
        }
+       
+      
+       
+       
        
    }
 
