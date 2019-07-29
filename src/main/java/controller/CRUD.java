@@ -185,7 +185,7 @@ public class  CRUD<T> {
 		 
 		 try {
 			 session.beginTransaction();
-			 session.update(object);
+			 session.saveOrUpdate(object);
 			 session.getTransaction().commit();
 		 
 		
