@@ -53,7 +53,7 @@ public class LoginFormListeners {
                 
                 if(user.getEmail().equals(email) && user.getPassword().equals(password)){
                     form.dispose();
-                    MainForm form1 =   new MainForm();
+                    MainForm form1 =   new MainForm(user);
                     form1.setVisible(true);
                    
                     form1.getLblName().setText(user.getFirstName());

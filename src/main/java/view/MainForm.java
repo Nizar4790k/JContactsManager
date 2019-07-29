@@ -9,11 +9,23 @@ import controller.CRUD;
 import static controller.CRUD.queryObject;
 import controller.MainFormListeners;
 import controller.PhoneFormListener;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.sql.SQLException;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import model.objects.Company;
+import model.objects.Contact;
+import model.objects.Phone;
 import model.objects.Position;
 import model.objects.User;
 
@@ -23,6 +35,7 @@ import model.objects.User;
  */
 public class MainForm extends javax.swing.JFrame {
 
+    
     private List<Company> listCompany;
     private List<Position> listPosition;
     private User currentUser;
@@ -33,6 +46,22 @@ public class MainForm extends javax.swing.JFrame {
         initComponents();
         addListeners();
         try {
+        createListContact();
+
+            reloadCmb();
+        } catch (SQLException ex) {
+        
+        }
+    }
+    
+    public MainForm(User user){
+        this.currentUser=user;
+        initComponents();
+        addListeners();
+        this.listSelectionContact.setEnabled(false);
+       
+           try {
+              createListContact();
             reloadCmb();
         } catch (SQLException ex) {
         
@@ -76,8 +105,10 @@ public class MainForm extends javax.swing.JFrame {
         cmbCompany2 = new javax.swing.JComboBox<>();
         jTextField12 = new javax.swing.JTextField();
         jTextField11 = new javax.swing.JTextField();
-        jPanel10 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
+        pnlContacts = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        listSelectionContact = new javax.swing.JList<>();
+        pnlContactFields = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -90,8 +121,8 @@ public class MainForm extends javax.swing.JFrame {
         txtPhoto = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnEditPhone = new javax.swing.JButton();
+        btnDeletePhone = new javax.swing.JButton();
         btnAddPhone = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblPhone = new javax.swing.JTable();
@@ -113,12 +144,12 @@ public class MainForm extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        menuContact = new javax.swing.JMenu();
-        radMenuAddContact = new javax.swing.JRadioButtonMenuItem();
-        radMenuDeleteContact = new javax.swing.JRadioButtonMenuItem();
-        radMenuEditContact = new javax.swing.JRadioButtonMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
+        menuContact = new javax.swing.JMenu();
+        radMenuAddContact = new javax.swing.JRadioButtonMenuItem();
+        radMenuEditContact = new javax.swing.JRadioButtonMenuItem();
+        radMenuDeleteContact = new javax.swing.JRadioButtonMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -273,7 +304,6 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        cmbCompany2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbCompany2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbCompany2ActionPerformed(evt);
@@ -337,25 +367,21 @@ public class MainForm extends javax.swing.JFrame {
 
         jPanel6.add(jPanel9);
 
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 273, Short.MAX_VALUE)
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 330, Short.MAX_VALUE)
-        );
+        pnlContacts.setLayout(new java.awt.BorderLayout());
 
-        jPanel6.add(jPanel10);
+        listSelectionContact.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane3.setViewportView(listSelectionContact);
+
+        pnlContacts.add(jScrollPane3, java.awt.BorderLayout.CENTER);
+
+        jPanel6.add(pnlContacts);
 
         jPanel3.add(jPanel6);
 
         jPanel2.add(jPanel3);
 
-        jPanel4.setBackground(new java.awt.Color(102, 102, 102));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contact's info.", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
+        pnlContactFields.setBackground(new java.awt.Color(102, 102, 102));
+        pnlContactFields.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contact's info.", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Name:");
@@ -382,8 +408,6 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        cmbPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         btnApply.setBackground(new java.awt.Color(153, 255, 153));
         btnApply.setForeground(new java.awt.Color(255, 255, 255));
         btnApply.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_f-check_256_282474.png"))); // NOI18N
@@ -392,6 +416,7 @@ public class MainForm extends javax.swing.JFrame {
         lblPhoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_user_man_678132.png"))); // NOI18N
 
         txtPhoto.setEditable(false);
+        txtPhoto.setText("default");
 
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_camera-photo_118846.png"))); // NOI18N
@@ -401,15 +426,15 @@ public class MainForm extends javax.swing.JFrame {
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Phone(s)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel7.setForeground(new java.awt.Color(255, 255, 255));
 
-        jButton3.setBackground(new java.awt.Color(51, 51, 255));
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_brush-pencil_1055103.png"))); // NOI18N
-        jButton3.setText("Edit");
+        btnEditPhone.setBackground(new java.awt.Color(51, 51, 255));
+        btnEditPhone.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditPhone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_brush-pencil_1055103.png"))); // NOI18N
+        btnEditPhone.setText("Edit");
 
-        jButton2.setBackground(new java.awt.Color(255, 102, 102));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_minus_1645995.png"))); // NOI18N
-        jButton2.setText("Delete");
+        btnDeletePhone.setBackground(new java.awt.Color(255, 102, 102));
+        btnDeletePhone.setForeground(new java.awt.Color(255, 255, 255));
+        btnDeletePhone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_minus_1645995.png"))); // NOI18N
+        btnDeletePhone.setText("Delete");
 
         btnAddPhone.setBackground(new java.awt.Color(102, 255, 102));
         btnAddPhone.setForeground(new java.awt.Color(255, 255, 255));
@@ -425,6 +450,7 @@ public class MainForm extends javax.swing.JFrame {
                 "Number", "Type"
             }
         ));
+        tblPhone.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tblPhone);
 
         jLabel17.setForeground(new java.awt.Color(255, 0, 0));
@@ -440,8 +466,8 @@ public class MainForm extends javax.swing.JFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(btnAddPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton3)
+                        .addComponent(btnDeletePhone, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnEditPhone)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -462,9 +488,9 @@ public class MainForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)))
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnAddPhone)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnDeletePhone, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnEditPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         btnPickPhoto.setText("...");
@@ -483,7 +509,11 @@ public class MainForm extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Email:");
 
-        cmbCompany1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbCompany1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbCompany1ActionPerformed(evt);
+            }
+        });
 
         jLabel7.setForeground(new java.awt.Color(255, 0, 0));
         jLabel7.setText("*");
@@ -494,54 +524,54 @@ public class MainForm extends javax.swing.JFrame {
         jLabel16.setForeground(new java.awt.Color(255, 0, 0));
         jLabel16.setText("*");
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlContactFieldsLayout = new javax.swing.GroupLayout(pnlContactFields);
+        pnlContactFields.setLayout(pnlContactFieldsLayout);
+        pnlContactFieldsLayout.setHorizontalGroup(
+            pnlContactFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlContactFieldsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGroup(pnlContactFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlContactFieldsLayout.createSequentialGroup()
                         .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlContactFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
                             .addComponent(btnApply, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(2, 2, 2))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addGroup(pnlContactFieldsLayout.createSequentialGroup()
+                        .addGroup(pnlContactFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlContactFieldsLayout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtLastName1))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addGroup(pnlContactFieldsLayout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtEmail))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addGroup(pnlContactFieldsLayout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cmbCompany1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addGroup(pnlContactFieldsLayout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtName1)
                                 .addGap(18, 18, 18)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlContactFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
                             .addComponent(jLabel15)
                             .addComponent(jLabel16))
                         .addGap(203, 203, 203))))
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+            .addGroup(pnlContactFieldsLayout.createSequentialGroup()
+                .addGroup(pnlContactFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlContactFieldsLayout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtPhoto)
                         .addGap(6, 6, 6))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlContactFieldsLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -549,55 +579,55 @@ public class MainForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPickPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(179, 179, 179))
-            .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(pnlContactFieldsLayout.createSequentialGroup()
                 .addGap(145, 145, 145)
                 .addComponent(lblPhoto)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        pnlContactFieldsLayout.setVerticalGroup(
+            pnlContactFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlContactFieldsLayout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(lblPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlContactFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlContactFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
                         .addComponent(txtName1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel7))
                 .addGap(14, 14, 14)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlContactFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtLastName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlContactFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlContactFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(cmbCompany1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlContactFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(cmbPosition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlContactFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txtPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPickPhoto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(pnlContactFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlContactFieldsLayout.createSequentialGroup()
                         .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnApply))
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        jPanel2.add(jPanel4);
+        jPanel2.add(pnlContactFields);
 
         jPanel1.add(jPanel2, java.awt.BorderLayout.CENTER);
 
@@ -626,6 +656,15 @@ public class MainForm extends javax.swing.JFrame {
 
         jMenu4.setText("Actions");
 
+        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_Company.png"))); // NOI18N
+        jMenu5.setText("Company");
+
+        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_Company.png"))); // NOI18N
+        jMenuItem7.setText("Add company");
+        jMenu5.add(jMenuItem7);
+
+        jMenu4.add(jMenu5);
+
         menuContact.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_contacts_1055082.png"))); // NOI18N
         menuContact.setText("Contacts");
 
@@ -640,26 +679,17 @@ public class MainForm extends javax.swing.JFrame {
         });
         menuContact.add(radMenuAddContact);
 
-        buttonGroup1.add(radMenuDeleteContact);
-        radMenuDeleteContact.setText("Edit contact");
-        radMenuDeleteContact.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_user_profile_edit_103781.png"))); // NOI18N
-        menuContact.add(radMenuDeleteContact);
-
         buttonGroup1.add(radMenuEditContact);
-        radMenuEditContact.setText("Delete contact");
-        radMenuEditContact.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_Streamline-70_185090.png"))); // NOI18N
+        radMenuEditContact.setText("Edit contact");
+        radMenuEditContact.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_user_profile_edit_103781.png"))); // NOI18N
         menuContact.add(radMenuEditContact);
 
+        buttonGroup1.add(radMenuDeleteContact);
+        radMenuDeleteContact.setText("Delete contact");
+        radMenuDeleteContact.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_Streamline-70_185090.png"))); // NOI18N
+        menuContact.add(radMenuDeleteContact);
+
         jMenu4.add(menuContact);
-
-        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_Company.png"))); // NOI18N
-        jMenu5.setText("Company");
-
-        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_Company.png"))); // NOI18N
-        jMenuItem7.setText("Add company");
-        jMenu5.add(jMenuItem7);
-
-        jMenu4.add(jMenu5);
 
         jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
         jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_view-refresh_118801.png"))); // NOI18N
@@ -713,6 +743,10 @@ public class MainForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_radMenuAddContactActionPerformed
 
+    private void cmbCompany1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCompany1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbCompany1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -754,14 +788,14 @@ public class MainForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddPhone;
     private javax.swing.JButton btnApply;
+    private javax.swing.JButton btnDeletePhone;
+    private javax.swing.JButton btnEditPhone;
     private javax.swing.JButton btnPickPhoto;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JComboBox<String> cmbCompany1;
-    private javax.swing.JComboBox<String> cmbCompany2;
-    private javax.swing.JComboBox<String> cmbPosition;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JComboBox<Company> cmbCompany1;
+    private javax.swing.JComboBox<Company> cmbCompany2;
+    private javax.swing.JComboBox<Position> cmbPosition;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -792,10 +826,8 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
@@ -807,6 +839,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
@@ -816,7 +849,10 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPhoto;
     private javax.swing.JLabel lblUser;
+    private javax.swing.JList<Contact> listSelectionContact;
     private javax.swing.JMenu menuContact;
+    private javax.swing.JPanel pnlContactFields;
+    private javax.swing.JPanel pnlContacts;
     private javax.swing.JRadioButtonMenuItem radMenuAddContact;
     private javax.swing.JRadioButtonMenuItem radMenuDeleteContact;
     private javax.swing.JRadioButtonMenuItem radMenuEditContact;
@@ -832,13 +868,13 @@ public class MainForm extends javax.swing.JFrame {
     
     private void reloadCmb() throws SQLException{
         listCompany = CRUD.<Company>queryObject(Company.class);
-         DefaultComboBoxModel<String> model1 = new DefaultComboBoxModel();
-         DefaultComboBoxModel<String> model2 = new DefaultComboBoxModel();
-         DefaultComboBoxModel<String> model3 = new DefaultComboBoxModel();
+         DefaultComboBoxModel<Company> model1 = new DefaultComboBoxModel();
+         DefaultComboBoxModel<Company> model2 = new DefaultComboBoxModel();
+         DefaultComboBoxModel<Position> model3 = new DefaultComboBoxModel();
          
          for(Company cmp: listCompany){
-         model1.addElement(cmp.getName());
-         model2.addElement(cmp.getName());
+         model1.addElement(cmp);
+         model2.addElement(cmp);
         
          
          }
@@ -846,18 +882,24 @@ public class MainForm extends javax.swing.JFrame {
          listPosition = CRUD.<Position>queryObject(Position.class);
          
          for(Position ps : listPosition){
-             model3.addElement(ps.getName());
+             model3.addElement(ps);
          }
         
         cmbPosition.setModel(model3);
         getCmbCompany1().setModel( model1);
-        cmbCompany2.setModel( model2);
+        cmbCompany2.setModel(model2);
     }
     
     private void addListeners(){
         btnAddPhone.addActionListener(MainFormListeners.btnAddPhoneListener(this));
         btnPickPhoto.addActionListener(MainFormListeners.btnAddPhoto(this));
         btnApply.addActionListener(MainFormListeners.btnApplyListener(this));
+        btnDeletePhone.addActionListener(MainFormListeners.removePhone(tblPhone));
+        listSelectionContact.addListSelectionListener(MainFormListeners.selectContactListener(this));
+        radMenuDeleteContact.addActionListener(MainFormListeners.radMenuDeleteContact(this));
+        radMenuAddContact.addActionListener(MainFormListeners.radMenuAddContact(this));
+        radMenuEditContact.addActionListener(MainFormListeners.radMenuEditContact(this));
+        
     }
     
     /**
@@ -940,9 +982,7 @@ public class MainForm extends javax.swing.JFrame {
     /**
      * @return the tblPhone
      */
-    public javax.swing.JTable getTblPhone() {
-        return tblPhone;
-    }
+  
 
     /**
      * @return the txtAreaContact
@@ -954,14 +994,14 @@ public class MainForm extends javax.swing.JFrame {
     /**
      * @return the cmbCompany1
      */
-    public javax.swing.JComboBox<String> getCmbCompany1() {
+    public JComboBox<Company> getCmbCompany1() {
         return cmbCompany1;
     }
 
     /**
      * @return the cmbPosition
      */
-    public javax.swing.JComboBox<String> getCmbPosition() {
+    public javax.swing.JComboBox<Position> getCmbPosition() {
         return cmbPosition;
     }
 
@@ -1002,4 +1042,93 @@ public class MainForm extends javax.swing.JFrame {
     
     
     
+    
+    
+    
+    public void  createListContact() throws SQLException{
+        
+        DefaultListModel<Contact> model = new DefaultListModel<Contact>();
+        List<Contact> listContact = CRUD.queryObject(Contact.class);
+        
+        for(Contact c : listContact){
+           if(c.getUser().getEmail().equals(currentUser.getEmail()));
+            model.addElement(c);
+           
+           
+        }
+        
+        this.getListSelectionContact().setModel(model);
+        this.getListSelectionContact().setCellRenderer(new ContactRenderer());
+       
+        
+    }
+
+    /**
+     * @return the pnlContactFields
+     */
+    public javax.swing.JPanel getPnlContactFields() {
+        return pnlContactFields;
+    }
+
+    /**
+     * @return the listSelectionContact
+     */
+    public javax.swing.JList<Contact> getListSelectionContact() {
+        return listSelectionContact;
+    }
+
+    public JButton getBtnApply() {
+        return btnApply;
+    }
+    
+   public void setEditableContactsField(boolean editable){
+       
+       cmbPosition.setEnabled(editable);
+       cmbCompany1.setEnabled(editable);
+       txtName1.setEditable(editable);
+       txtLastName1.setEditable(editable);
+       txtEmail.setEditable(editable);
+       tblPhone.setEnabled(editable);
+       txtAreaContact.setEditable(editable);
+       btnAddPhone.setEnabled(editable);
+       btnEditPhone.setEnabled(editable);
+       btnDeletePhone.setEnabled(editable);
+       btnPickPhoto.setEnabled(editable);
+       
+   }  
+    
+   public void setDefaultFields(){
+       cmbPosition.setSelectedIndex(0);
+       cmbPosition.setBackground(Color.WHITE);
+       cmbPosition.setForeground(Color.BLACK);
+      
+       cmbCompany1.setSelectedIndex(0);
+       
+       cmbCompany1.setBackground(Color.WHITE);
+       cmbCompany1.setForeground(Color.BLACK);
+       
+       txtName1.setText("");
+       txtLastName1.setText("");
+       txtEmail.setText("");
+       txtPhoto.setText("");
+       txtAreaContact.setText("");
+       
+       DefaultTableModel model = (DefaultTableModel)this.tblPhone.getModel();
+       
+       for(int i=0;i<model.getRowCount();i++){
+         model.removeRow(i);
+       }
+       
+   }
+
+    public JTable getTblPhone() {
+        return tblPhone;
+    }
+ 
+   
+   
+   
+   
+   
+   
 }

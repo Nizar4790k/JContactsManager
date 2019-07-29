@@ -45,6 +45,7 @@ public class Contact implements Serializable {
     
    @ManyToOne
    @JoinColumn(name="companyId")
+   
    private Company company;
     
     
@@ -82,7 +83,141 @@ public class Contact implements Serializable {
     public Contact(){
         
     }
+
+    
    
+    @Override
+    public String toString(){
+        return getFirstName();
+    }
+
+    /**
+     * @return the contactId
+     */
+    public int getContactId() {
+        return contactId;
+    }
+
+    /**
+     * @param contactId the contactId to set
+     */
+    public void setContactId(int contactId) {
+        this.contactId = contactId;
+    }
+
+    /**
+     * @return the firstName
+     */
+    public String getFirstName() {
+        return firstName;
+    }
+
+    /**
+     * @param firstName the firstName to set
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    /**
+     * @return the lastName
+     */
+    public String getLastName() {
+        return lastName;
+    }
+
+    /**
+     * @param lastName the lastName to set
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * @return the user
+     */
+    public User getUser() {
+        return user;
+    }
+
+    /**
+     * @param user the user to set
+     */
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    /**
+     * @return the company
+     */
+    public Company getCompany() {
+        return company;
+    }
+
+    /**
+     * @param company the company to set
+     */
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    /**
+     * @return the position
+     */
+    public Position getPosition() {
+        return position;
+    }
+
+    /**
+     * @param position the position to set
+     */
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    /**
+     * @return the note
+     */
+    public Note getNote() {
+        return note;
+    }
+
+    /**
+     * @param note the note to set
+     */
+    public void setNote(Note note) {
+        this.note = note;
+    }
+
+    /**
+     * @return the photo
+     */
+    public Photo getPhoto() {
+        return photo;
+    }
+
+    /**
+     * @param photo the photo to set
+     */
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
+    }
+
+    
    
    
    

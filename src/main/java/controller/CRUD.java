@@ -68,10 +68,10 @@ public class  CRUD<T> {
 	}
 	
 	
-	public static <T,Pk> void deleteObject(Pk id, Class c) throws SQLException {
+	public static <T> void deleteObject(T object) throws SQLException {
 		
-		  T object;  
-		  SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(c).buildSessionFactory();
+		 
+		  SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(object.getClass()).buildSessionFactory();
 
 	      Session session = factory.getCurrentSession();
 	
@@ -81,7 +81,7 @@ public class  CRUD<T> {
 	    	  
 	    	  
 	    
-			object = getObject(id,c);
+			
 	    	
 	    	 
 	    	 session = factory.getCurrentSession();
@@ -260,6 +260,7 @@ public class  CRUD<T> {
 	}
 	
 
+   
            
 
 

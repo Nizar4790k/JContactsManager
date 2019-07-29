@@ -91,6 +91,11 @@ public class Company implements Serializable {
      * @return the contacts
      */
 
+      @Override
+    public String toString(){
+        return getName();
+    }
+    
     
     
 }

@@ -19,15 +19,17 @@ public class PhoneForm extends javax.swing.JFrame {
      */
     
     private DefaultTableModel model;
+    private MainForm mainForm;
     
     public PhoneForm() {
         initComponents();
         addListeners();
     }
-    public PhoneForm(DefaultTableModel model){
+    public PhoneForm(DefaultTableModel model,MainForm form){
         initComponents();
         addListeners();
         this.model = model;
+        this.mainForm=form;
     }
 
     /**
@@ -47,7 +49,9 @@ public class PhoneForm extends javax.swing.JFrame {
         btnBack = new javax.swing.JButton();
         btnApply = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Add phone");
+        setLocation(new java.awt.Point(300, 300));
         setResizable(false);
         getContentPane().setLayout(new java.awt.GridLayout(1, 1));
 
@@ -100,7 +104,7 @@ public class PhoneForm extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(67, 67, 67)
+                .addGap(52, 52, 52)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -108,7 +112,7 @@ public class PhoneForm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack)
                     .addComponent(btnApply)))
@@ -191,11 +195,25 @@ public class PhoneForm extends javax.swing.JFrame {
 
     public void addListeners(){
         btnApply.addActionListener(PhoneFormListener.createPhone(this));
+        btnBack.addActionListener(PhoneFormListener.btnBack(this));
+        this.addWindowListener(PhoneFormListener.windowEvent());
         
        
     }
 
+    /**
+     * @return the mainForm
+     */
+    public MainForm getMainForm() {
+        return mainForm;
+    }
 
+    /**
+     * @return the form
+     */
+   
+
+    
 
 
 }

@@ -44,7 +44,7 @@ public class SingUpFormListener {
                  return;
              }
              
-             if(!isValidEmail(email)){
+             if(!Validation.isValidEmail(email)){
                  Dialog.errorDialog("The email is not valid", "Invalid Email");
                  return;
              }
@@ -119,11 +119,7 @@ public class SingUpFormListener {
     
     
     
-     private static boolean isValidEmail(String email) 
-     {
-   String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-   return email.matches(regex);
-    }
+    
     
       private static boolean isValidPassword(String password) {
    String regex = "((?=.*[a-z])(?=.*\\d)(?=.*[A-Z])(?=.*[@#$%!_]).{8,40})";
