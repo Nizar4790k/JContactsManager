@@ -5,6 +5,14 @@
  */
 package view;
 
+import controller.AboutFormListeners;
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Nizar4790k
@@ -32,12 +40,18 @@ public class AboutForm extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        uriLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(300, 200));
         getContentPane().setLayout(new java.awt.GridLayout(1, 1));
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
+        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/iconfinder_contacts_1055082 (1).png"))); // NOI18N
 
@@ -50,10 +64,10 @@ public class AboutForm extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Repository:");
 
-        jLabel5.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(51, 153, 255));
-        jLabel5.setText("<html><a href=''>https://github.com/Nizar4790k/JContactsManager</a></html>");
-        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        uriLabel.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        uriLabel.setForeground(new java.awt.Color(51, 153, 255));
+        uriLabel.setText("<html><a href=''>https://github.com/Nizar4790k/JContactsManager</a></html>");
+        uriLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -67,7 +81,7 @@ public class AboutForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(uriLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addContainerGap()
@@ -88,7 +102,7 @@ public class AboutForm extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(uriLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
@@ -98,6 +112,19 @@ public class AboutForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+  Desktop desktop = java.awt.Desktop.getDesktop();
+        try {
+      try {
+          desktop.browse(new URI("https://github.com/Nizar4790k/JContactsManager.git"));
+      } catch (URISyntaxException ex) {
+          Logger.getLogger(AboutForm.class.getName()).log(Level.SEVERE, null, ex);
+      }
+        }catch (IOException ex) {
+            Logger.getLogger(AboutFormListeners.class.getName()).log(Level.SEVERE, null, ex);        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel1MouseClicked
+
+    }
     /**
      * @param args the command line arguments
      */
@@ -138,7 +165,13 @@ public class AboutForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel uriLabel;
     // End of variables declaration//GEN-END:variables
+
+    private void addListener(){
+        uriLabel.addMouseListener(AboutFormListeners.goToUrl("https://github.com/Nizar4790k/JContactsManager.git"));
+    }
+
+
 }

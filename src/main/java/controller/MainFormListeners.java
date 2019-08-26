@@ -14,10 +14,17 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JList;
+import javax.swing.JRadioButton;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -30,6 +37,8 @@ import model.objects.Photo;
 import model.objects.Position;
 import model.objects.User;
 import org.hibernate.exception.ConstraintViolationException;
+import view.AboutForm;
+import view.CreateCompanyForm;
 import view.Dialog;
 import view.MainForm;
 import view.PhoneForm;
@@ -51,6 +60,7 @@ public class MainFormListeners {
                 boolean deleteContact= form.getRadMenuDeleteContact().isSelected();
                 if(addContact){
                    saveContact(form);
+                   
                 
                     }else if(deleteContact){
                        
@@ -257,6 +267,9 @@ public class MainFormListeners {
                 form.setDefaultFields();
                 form.setDefaultFields();
                 form.getListSelectionContact().setEnabled(false);
+                form.getLblPhoto().setIcon(new ImageIcon("src/main/resources/img/icons/iconfinder_user_man_678132.png"));
+
+                
             }
             
         };
@@ -424,11 +437,245 @@ public class MainFormListeners {
                     } catch (SQLException ex) {
                         Dialog.errorDialog("An error has ocurred when adding the contact","ERROR");
                     }
-      }
-      
-      
+     
+         
+                
+               
+         
+        
          
          
          
+         
+         
+         }
       
+       public static ActionListener enableSearchBy(MainForm form){
+             ActionListener listener=  new ActionListener(){
+                 @Override
+                 public void actionPerformed(ActionEvent ae) {
+                 
+                  
+                    JRadioButtonMenuItem checkBox = (JRadioButtonMenuItem) ae.getSource();
+                   
+                    JRadioButton radByName= form.getRadBtnByName();
+                    JRadioButton radByLastName=form.getRadBtnLastName();
+                    JRadioButton radByFullName = form.getRadBtnBtnByFullNAme();
+                    JRadioButton radByCompany = form.getRadBtnByCompany();
+                  
+                    JButton buttonSearch = form.getBtnSearchBy();
+                    
+                    JTextField txtByName = form.getTxtByName();
+                    JTextField txtByLastName = form.getTxtByLastName();
+                    JTextField txtByName2= form.getTxtByName1();
+                    JTextField txtByLastName2= form.getTxtByLastName1();
+                    
+                    
+                    radByFullName.setEnabled(checkBox.isSelected());
+                    radByName.setEnabled(checkBox.isSelected());
+                    radByLastName.setEnabled(checkBox.isSelected());
+                    radByCompany.setEnabled(checkBox.isSelected());
+                    buttonSearch.setEnabled(checkBox.isSelected());
+                   
+                    
+                    JComboBox comboBox = form.getCmbByCompany();
+                    
+                    
+                    if(checkBox.isSelected()){
+                        txtByLastName.setEnabled(false);
+                        txtByLastName2.setEnabled(false);
+                        txtByName.setEnabled(false);
+                        comboBox.setEnabled(false);
+                        txtByName.setEnabled(true);
+                        comboBox.setEnabled(false);
+                        radByName.setSelected(true);
+                        
+                    }
+                    
+                    clearCustomFields(form);
+                    
+                  
+                    
+                  
+                 
+             }
+             
+            
+         };
+         
+          return listener;
+       }           
+      
+       
+       public static ActionListener searchByRadioListener(MainForm form){
+         
+           ActionListener listener = new ActionListener(){
+               @Override
+               public void actionPerformed(ActionEvent ae) {
+                    
+                    form.getListSelectionContact().setEnabled(true);
+                    JRadioButton radByName= form.getRadBtnByName();
+                    JRadioButton radByLastName=form.getRadBtnLastName();
+                    JRadioButton radByFullName = form.getRadBtnBtnByFullNAme();
+                    JRadioButton radByCompany = form.getRadBtnByCompany();
+                   
+                    
+                      JTextField txtByName = form.getTxtByName();
+                    JTextField txtByLastName = form.getTxtByLastName();
+                    JTextField txtByName2= form.getTxtByName1();
+                    JTextField txtByLastName2= form.getTxtByLastName1();
+                    
+                         
+                    JComboBox comboBox = form.getCmbByCompany();
+                   
+                   
+                     if(radByName.isSelected()){
+                        txtByName.setEnabled(true);
+                        txtByLastName.setEnabled(false);
+                        txtByName2.setEnabled(false);
+                        txtByLastName2.setEnabled(false);
+                        comboBox.setEnabled(false);
+                        
+                    }else if(radByLastName.isSelected()){
+                        txtByName.setEnabled(false);
+                        txtByLastName.setEnabled(true);
+                        txtByName2.setEnabled(false);
+                        txtByLastName2.setEnabled(false);
+                        comboBox.setEnabled(false);
+                        
+                    } else if (radByFullName.isSelected()){
+                         txtByName.setEnabled(false);
+                        txtByLastName.setEnabled(false);
+                        txtByName2.setEnabled(true);
+                        txtByLastName2.setEnabled(true);
+                        comboBox.setEnabled(false);
+                    }else {
+                         txtByName.setEnabled(false);
+                        txtByLastName.setEnabled(false);
+                        txtByName2.setEnabled(false);
+                        txtByLastName2.setEnabled(false);
+                        comboBox.setEnabled(true);
+                    }
+                   clearCustomFields(form);
+                   
+               }
+               
+           };
+           
+           return listener;
+           
+       }
+       
+       private static void clearCustomFields(MainForm form){
+           JTextField txtByName = form.getTxtByName();
+                    JTextField txtByLastName = form.getTxtByLastName();
+                    JTextField txtByName2= form.getTxtByName1();
+                    JTextField txtByLastName2= form.getTxtByLastName1();
+                    
+                    txtByName.setText("");
+                    txtByLastName.setText("");
+                    txtByName2.setText("");
+                    txtByLastName2.setText("");
+                    
+                    
+       }
+       
+       public static ActionListener customQueryListener(MainForm form){
+           
+                 ActionListener listener = new ActionListener(){
+                     @Override
+                     public void actionPerformed(ActionEvent ae) {
+                       
+                    JRadioButton radByName= form.getRadBtnByName();
+                    JRadioButton radByLastName=form.getRadBtnLastName();
+                    JRadioButton radByFullName = form.getRadBtnBtnByFullNAme();
+                    JRadioButton radByCompany = form.getRadBtnByCompany();
+                    
+                     JTextField txtByName = form.getTxtByName();
+                    JTextField txtByLastName = form.getTxtByLastName();
+                    JTextField txtByName2= form.getTxtByName1();
+                    JTextField txtByLastName2= form.getTxtByLastName1();
+                    
+                        
+                    JComboBox comboBox = form.getCmbByCompany();
+                      List<Contact> contacts;
+                    
+                      if(radByName.isSelected()){
+                        contacts  =  CRUD.executeQuery("FROM Contact C where C.firstName='"+txtByName.getText()+"'", Contact.class);
+                         
+                      }else if(radByLastName.isSelected()){
+                           contacts  =  CRUD.executeQuery("FROM Contact C where C.lastName='"+txtByLastName.getText()+"'", Contact.class);
+                     
+                      }else if(radByFullName.isSelected()){
+                              contacts  =  CRUD.executeQuery("FROM Contact C where C.firstName='"+txtByName2.getText()+"'AND  C.lastName='"+txtByLastName2.getText()+"'", Contact.class);
+                     
+                      }else {
+                          Company company = (Company)comboBox.getSelectedItem();
+                          
+                           contacts  =  CRUD.executeQuery("FROM Contact C where C.company='"+String.valueOf(company.getCompanyId())+"'", Contact.class);
+                      }
+        
+                      
+                      
+                         
+                      DefaultListModel<Contact> model = new DefaultListModel<Contact>();
+                     
+                     for(Contact c : contacts){
+                         model.addElement(c);
+                     }
+                     
+                     form.getListSelectionContact().setModel(model);   
+                      
+                      
+                         
+                         
+                     }
+                     
+                 
+                     
+                 
+           
+                    
+           
+           
+           
+                   };
+                         return listener;
+           
+       
+                         }
+       
+       
+       
+       public ActionListener addCompany(MainForm form){
+           
+           ActionListener listener = new ActionListener(){
+               @Override
+               public void actionPerformed(ActionEvent ae) { 
+                  
+                 new CreateCompanyForm().setVisible(true); 
+              
+                   
+                   
+               }
+              
+           };
+         return listener;  
+       }
+       
+       public static ActionListener AboutListener(){
+        
+          ActionListener listener = new ActionListener(){
+              @Override
+            
+              public void actionPerformed(ActionEvent ae) {
+                 new AboutForm().setVisible(true); 
+              }
+             
+           };
+           
+           return listener;
+           
+       }
+       
 }
