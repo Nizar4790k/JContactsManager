@@ -5,6 +5,10 @@
  */
 package main;
 
+import controller.CRUD;
+
+import java.sql.SQLException;
+
 import view.LoginForm;
 
 /**
@@ -14,5 +18,8 @@ import view.LoginForm;
 public class Main {
     public static void main(String [] args){
         new LoginForm().setVisible(true);
+        
+           CRUD.getConnection();
+       
     }
 }
